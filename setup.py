@@ -26,6 +26,9 @@ setup(
       'pyyaml',
       'psutil',
       'namedlist',
+      'protobuf==3.19.6',
+      'opencv-contrib-python>=4.4.0.42',
+      'opencv-python>=4.4.0.42',
     ],
     scripts=['tleague/bin/tleague_horovodrun']
 )
