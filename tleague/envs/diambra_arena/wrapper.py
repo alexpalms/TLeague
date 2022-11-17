@@ -30,7 +30,15 @@ class TLeagueWrapper(gym.Wrapper):
                                                          shape=(shp[0], shp[1], shp[2] + 1),
                                                          dtype=np.float32)])
         self.action_space = spaces.Tuple([self.action_space["P1"], self.action_space["P2"]])
-        self.elems_per_key = int(shp[0] / len(self.key_to_add))*shp[1]
+
+        keys_count = 0
+        self.n_chars = len(self.env.char_names)
+        for key in self.key_to_add:
+            if "Char" in key:
+                keys_count += self.n_chars
+            else:
+                keys_count += 1
+        self.elems_per_key = int(shp[0] / keys_count)*shp[1]
 
     # Observation modification (adding one channel to store additional info)
     def process_obs(self, obs, player_side):
@@ -49,8 +57,15 @@ class TLeagueWrapper(gym.Wrapper):
         new_data = np.zeros((shp[0] * shp[1]))
 
         # Adding new info
-        for idx, key in enumerate(self.key_to_add):
-            new_data[idx * self.elems_per_key:(idx + 1) * self.elems_per_key] = obs[player_side][key]
+        idx = 0
+        for key in self.key_to_add:
+            if "Char" in key:
+                for jdx in range(self.n_chars):
+                    new_data[idx * self.elems_per_key:(idx + 1) * self.elems_per_key] = obs[player_side][key][jdx]
+                    idx += 1
+            else:
+                new_data[idx * self.elems_per_key:(idx + 1) * self.elems_per_key] = obs[player_side][key]
+                idx += 1
 
         new_data = np.reshape(new_data, (shp[0], -1))
 
@@ -71,4 +86,25 @@ class TLeagueWrapper(gym.Wrapper):
         obs, reward, done, info = self.env.step(np.append(action[0], action[1]))
 
         return self.two_player_obs(obs), (reward, -reward), done, info
+
+    def show_ram_states_channel(self, obs):
+
+        column_elems_per_key = int(self.elems_per_key / obs[0].shape[1])
+        idx_end = obs[0].shape[0] - (obs[0].shape[0] % column_elems_per_key)
+
+        for idx in range(2):
+            print("P{} - RAM States in Channel:".format(idx+1))
+
+            obs1 = np.reshape(obs[idx][0:idx_end, 0, -1], (int(idx_end / column_elems_per_key), -1))
+            irow = 0
+            for key in self.key_to_add:
+                if "Char" in key:
+                    for jdx in range(self.n_chars):
+                        print("{} (One-hot | {}) - {}".format(key, self.env.char_names[jdx], obs1[irow, :]))
+                        irow += 1
+                else:
+                    print("{} - {}".format(key, obs1[irow, :]))
+                    irow += 1
+
+
 
