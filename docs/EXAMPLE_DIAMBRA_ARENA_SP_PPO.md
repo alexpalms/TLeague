@@ -1,0 +1,10 @@
+# Example for Running Pong2p with SelfPlay + PPO
+
+`cd` to the directory `Tleague/examples` and run the following command lines each in a separate terminal.
+
+```Shell
+bash example_diambra_arena_sp_ppo.sh model_pool
+bash example_diambra_arena_sp_ppo.sh league_mgr
+bash example_diambra_arena_sp_ppo.sh learner
+diambra run -s 16 bash example_diambra_arena_sp_ppo.sh actor
+```

@@ -1,5 +1,6 @@
 import diambra.arena
 from tleague.envs.diambra_arena.wrapper import TLeagueWrapper
+import os
 
 def create_diambra_arena_env(game_id):
 
@@ -11,7 +12,7 @@ def create_diambra_arena_env(game_id):
 
   #assert game_id in game_ids
   # Only doapp for now
-  assert game_id in "doapp"
+  assert game_id in ["doapp"]
 
   # Settings
   settings = {}
@@ -31,7 +32,8 @@ def create_diambra_arena_env(game_id):
   wrappers_settings["frame_stack"] = 4
   wrappers_settings["scale"] = True
 
-
+  print("({}) Creating env".format(os.getpid()))
+  input("({}) Press Return".format(os.getpid()))
   env = diambra.arena.make(game_id, settings, wrappers_settings)
   env = TLeagueWrapper(env, ["ownSide", "ownHealth", "oppHealth", "ownChar", "oppChar"])
 
