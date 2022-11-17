@@ -78,7 +78,8 @@ class TLeagueWrapper(gym.Wrapper):
         return (self.process_obs(obs, "P1"), self.process_obs(obs, "P2"))
 
     def reset(self, **kwargs):
-        obs = self.env.reset(**kwargs)
+
+        obs = self.env.reset()
 
         return self.two_player_obs(obs)
 

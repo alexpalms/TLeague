@@ -33,8 +33,9 @@ def create_diambra_arena_env(game_id):
   wrappers_settings["scale"] = True
 
   print("({}) Creating env".format(os.getpid()))
-  input("({}) Press Return".format(os.getpid()))
   env = diambra.arena.make(game_id, settings, wrappers_settings)
+  print("({}) Env Created".format(os.getpid()))
+
   env = TLeagueWrapper(env, ["ownSide", "ownHealth", "oppHealth", "ownChar", "oppChar"])
 
   return env

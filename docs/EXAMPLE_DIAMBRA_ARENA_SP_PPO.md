@@ -5,6 +5,6 @@
 ```Shell
 bash example_diambra_arena_sp_ppo.sh model_pool
 bash example_diambra_arena_sp_ppo.sh league_mgr
-bash example_diambra_arena_sp_ppo.sh learner
-diambra run -s 16 bash example_diambra_arena_sp_ppo.sh actor
+diambra run bash example_diambra_arena_sp_ppo.sh learner
+diambra run bash example_diambra_arena_sp_ppo.sh actor
 ```
