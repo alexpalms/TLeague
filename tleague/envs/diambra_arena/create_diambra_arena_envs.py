@@ -46,6 +46,5 @@ def diambra_arena_env_space(game_id):
   env.reset()
   ac_space = env.action_space.spaces[0]
   ob_space = env.observation_space.spaces[0]
-  # TODO(pengsun): something wrong with .close()
-  #env.close()
+  env.close()
   return ob_space, ac_space
