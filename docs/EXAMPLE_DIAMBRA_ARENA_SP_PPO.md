@@ -1,4 +1,4 @@
-# Example for Running Pong2p with SelfPlay + PPO
+# Example for Running DIAMBRA Arena with SelfPlay + PPO
 
 `cd` to the directory `Tleague/examples` and run the following command lines each in a separate terminal.
 
