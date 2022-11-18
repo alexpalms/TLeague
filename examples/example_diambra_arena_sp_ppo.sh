@@ -6,7 +6,7 @@ role=$1
 # common args
 game_mgr_type=tleague.game_mgr.game_mgrs.SelfPlayGameMgr && \
 game_mgr_config="{
-  'max_n_players': 2}"
+  'max_n_players': 16}"
 mutable_hyperparam_type=ConstantHyperparam
 hyperparam_config_name="{ \
   'learning_rate': 0.0001, \
